@@ -1,65 +1,106 @@
-import Image from "next/image";
+"use client"; // Necesario para Framer Motion
 
-export default function Home() {
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+export default function Page() {
+  // Variantes para la animación de entrada
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-[#09090b] text-[#f4f4f5] flex flex-col font-sans overflow-x-hidden">
+      
+      {/* 1. Header con Logo Principal - Se mantiene igual */}
+      <motion.nav 
+        initial="hidden"
+        animate="visible"
+        transition={{ duration: 0.6 }}
+        variants={fadeInUp}
+        className="p-6 flex justify-center md:justify-start"
+      >
+        <div className="relative w-[120px] h-[40px] md:w-[150px] md:h-[50px]">
+          <Image 
+            src="/logo.png" 
+            alt="VERTICE LOGO" 
+            fill
+            className="object-contain"
+            priority 
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </motion.nav>
+
+      <main className="flex-1 flex flex-col items-center justify-center px-6 text-center py-10 md:py-16">
+        
+        {/* 2. Imagen VERTICE3 (PNG Transparente) - Agrandada */}
+        <motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  variants={fadeInUp}
+  className="relative w-[95%] max-w-[800px] aspect-square md:aspect-[16/9] mb-4"
+>
+  <Image 
+    src="/vertice3.png" 
+    alt="VERTICE INFO 1" 
+    fill
+    className="object-contain"
+    priority
+  />
+</motion.div>
+
+        {/* 3. Imagen VERTICE4 (JPEG con Fondo) - Agrandada y Ajustada */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          variants={fadeInUp}
+          className="relative w-full max-w-[650px] aspect-[16/9] md:aspect-[4/3] mb-12 rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl shadow-black/50"
+        >
+          <Image 
+            src="/complejo.jpeg" 
+            alt="VERTICE INFO 2" 
+            fill
+            className="object-cover"
+          />
+          {/* Un degradado sutil encima del JPEG para que integre mejor con el fondo dark */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09090b]/80 to-transparent" />
+        </motion.div>
       </main>
+
+      {/* 4. Sección Ubicación con animación - Sin cambios */}
+      <motion.section 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.6 }}
+        variants={fadeInUp}
+        className="p-6 pb-20"
+      >
+        <div className="max-w-md mx-auto bg-white/5 backdrop-blur-lg rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+          <div className="p-6">
+            <h3 className="text-xl font-bold mb-2 tracking-widest text-violet-400">UBICACIÓN</h3>
+            <p className="text-zinc-300 text-sm mb-6">Laprida 4454, Tortuguitas, Bs.As.</p>
+            
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Laprida+4454+Tortuguitas" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block w-full text-center bg-violet-700 text-white py-4 rounded-2xl font-black uppercase tracking-tighter active:scale-95 transition-all shadow-lg shadow-violet-500/20"
+            >
+              CÓMO LLEGAR
+            </a>
+          </div>
+        </div>
+      </motion.section>
+
+      <footer className="py-6 text-center text-xs text-zinc-600 border-t border-zinc-900 mt-auto">
+        © {new Date().getFullYear()} VÉRTICE
+      </footer>
     </div>
   );
 }
